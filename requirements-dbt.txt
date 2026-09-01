@@ -1,0 +1,4 @@
+# Local dbt against Snowflake.
+# python3 -m venv .venv && .venv/bin/pip install -r requirements-dbt.txt
+dbt-core==1.12.3
+dbt-snowflake==1.12.0

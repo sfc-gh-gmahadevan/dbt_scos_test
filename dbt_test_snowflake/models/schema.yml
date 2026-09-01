@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: "Cleaned, renamed order rows filtered to var('start_date') onward."
+    columns:
+      - name: order_key
+        description: "Primary key."
+        data_tests: [unique, not_null]
+      - name: customer_key
+        description: "FK to stg_customer."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customer')
+              field: customer_key
+      - name: order_status
+        data_tests:
+          - accepted_values:
+              values: ['O', 'F', 'P']
+      - name: order_total
+        data_tests: [not_null]
+
+  - name: stg_customer
+    description: "Cleaned, renamed customer rows."
+    columns:
+      - name: customer_key
+        description: "Primary key."
+        data_tests: [unique, not_null]
+      - name: market_segment
+        data_tests: [not_null]
+
+  - name: fct_customer_orders
+    description: "One row per customer with lifetime order metrics."
+    columns:
+      - name: customer_key
+        data_tests: [unique, not_null]
+      - name: order_count
+        data_tests: [not_null]
+      - name: lifetime_value
+        data_tests: [not_null]
+
+  - name: fct_daily_orders
+    description: "Incremental daily order rollup, one row per order_date."
+    columns:
+      - name: order_date
+        description: "Grain of the table."
+        data_tests: [unique, not_null]
+      - name: order_count
+        data_tests: [not_null]

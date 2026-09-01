@@ -1,0 +1,25 @@
+# profiles.yml for a NATIVELY DEPLOYED dbt project (snow dbt deploy).
+#
+# Two hard rules for this file:
+#   1. NO password / authenticator / private_key_path. Authentication comes from
+#      the Snowflake session that runs EXECUTE DBT PROJECT.
+#   2. It must live inside the project directory, next to dbt_project.yml.
+#
+# >>> EDIT role / warehouse / database / schema for your own account. <<<
+#
+# These are literal values because Snowflake CLI 3.14 validates profiles.yml
+# textually and rejects env_var(). On CLI >= 3.22 you can switch these to
+# env_var('DBT_...') calls backed by env.yml — see env.yml.needs-cli-3.22.
+
+dbt_learn:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "not needed"
+      user: "not needed"
+      role: NMAHADEVAN_FULL_ROLE
+      database: DBT_LEARN
+      warehouse: GMAHADEVAN_WH
+      schema: DEV
+      threads: 8

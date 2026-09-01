@@ -1,0 +1,31 @@
+# Python / dbt
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# dbt build artifacts
+target/
+dbt_packages/
+logs/
+.user.yml
+
+# Secrets and credentials — never commit
+.env
+*.p8
+*.pem
+*.key
+connections.toml
+
+# Spark / Snowpark Connect local state
+spark-warehouse/
+metastore_db/
+derby.log
+*.log
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

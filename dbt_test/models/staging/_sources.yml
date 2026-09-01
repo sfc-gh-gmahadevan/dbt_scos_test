@@ -1,0 +1,30 @@
+version: 2
+
+sources:
+  - name: tpch
+    description: "Read-only TPCH sample data shared into this account by Snowflake."
+    database: snowflake_sample_data
+    schema: tpch_sf1
+    tables:
+      - name: orders
+        description: "One row per order."
+        columns:
+          - name: o_orderkey
+            description: "Primary key of the order."
+            data_tests:
+              - unique
+              - not_null
+      - name: customer
+        description: "One row per customer."
+        columns:
+          - name: c_custkey
+            description: "Primary key of the customer."
+            data_tests:
+              - unique
+              - not_null
+      - name: lineitem
+        description: "One row per line on an order."
+      - name: nation
+        description: "Nation lookup."
+      - name: region
+        description: "Region lookup."

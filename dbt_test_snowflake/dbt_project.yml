@@ -1,0 +1,28 @@
+name: 'dbt_learn'
+version: '1.0.0'
+config-version: 2
+
+profile: 'dbt_learn'
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+vars:
+  # Only orders on/after this date flow into the models. Overridable at run time
+  # with: dbt run --vars '{start_date: "1996-01-01"}'
+  start_date: '1995-01-01'
+
+models:
+  dbt_learn:
+    staging:
+      +materialized: view
+      +schema: staging
+    marts:
+      +materialized: table
+      +schema: marts

@@ -1,0 +1,26 @@
+# Local dbt connection. Every value comes from an environment variable so this
+# file is safe to commit. Copy .env.example to .env, fill it in, and source it.
+#
+# Run dbt with DBT_PROFILES_DIR=. so it picks up this file instead of ~/.dbt/.
+
+dbt_learn:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+
+      # Must include the region for locator-style accounts, e.g. AB12345.us-east-1
+      account: "{{ env_var('SF_ACCOUNT') }}"
+      user: "{{ env_var('SF_USER') }}"
+
+      # Key-pair auth. No password is stored anywhere in this repo.
+      private_key_path: "{{ env_var('SF_PRIVATE_KEY_PATH') }}"
+      private_key_passphrase: "{{ env_var('SF_PRIVATE_KEY_PASSPHRASE') }}"
+
+      role: "{{ env_var('SF_ROLE') }}"
+      warehouse: "{{ env_var('SF_WAREHOUSE') }}"
+      database: "{{ env_var('SF_DATABASE', 'DBT_LEARN') }}"
+      schema: "{{ env_var('SF_SCHEMA', 'DEV') }}"
+
+      threads: 8
+      client_session_keep_alive: false

@@ -1,0 +1,8 @@
+# Snowpark Connect (SCOS) — runs real PySpark against a Snowflake warehouse.
+#
+# MUST live in a SEPARATE venv from dbt. SCOS requires pyspark 3.5.5, and
+# pyspark 4.x silently breaks Spark Connect serialization.
+#
+# python3 -m venv spark/.venv && spark/.venv/bin/pip install -r requirements-spark.txt
+snowpark-connect
+pyspark==3.5.5
